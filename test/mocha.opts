@@ -1,0 +1,5 @@
+--color
+-R spec
+-r should
+--compilers js:babel-register
+test/**/*.js
