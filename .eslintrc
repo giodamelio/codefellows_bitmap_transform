@@ -4,6 +4,7 @@
   "rules": {
     "func-names": 0,
     "spaced-comment": [2, "always", { "markers": ["/"] }],
+    "no-console": 0,
   },
   "env": {
     "node": true
