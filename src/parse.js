@@ -49,7 +49,9 @@ export default function parse(data) {
   output.verticalResolution = data.readInt32LE(42);
 
   // Parse the numbers of colors in the color palette
-  output.colorPalette = data.readInt32LE(46);
+  if (data.readInt32LE(46) !== 0) {
+    throw new Error('Color table is not supported');
+  }
 
   return output;
 }

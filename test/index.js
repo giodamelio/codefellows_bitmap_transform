@@ -8,6 +8,7 @@ const image1 = fs.readFileSync(path.join(__dirname, 'image1.bmp'));
 const invalidHeader = fs.readFileSync(path.join(__dirname, 'invalidHeader.bmp'));
 const invalidDIBHeader = fs.readFileSync(path.join(__dirname, 'invalidDIBHeader.bmp'));
 const compressionEnabled = fs.readFileSync(path.join(__dirname, 'compressionEnabled.bmp'));
+const colorPaletteEnabled = fs.readFileSync(path.join(__dirname, 'colorPaletteEnabled.bmp'));
 
 describe('Parser', () => {
   describe('Header', () => {
@@ -74,9 +75,10 @@ describe('Parser', () => {
       image.verticalResolution.should.equal(2835);
     });
 
-    it('should parse raw bitmap data length', () => {
-      const image = parseBitmap(image1);
-      image.colorPalette.should.equal(0);
+    it('should error if the length of the color pallet is not 0', () => {
+      (() => {
+        parseBitmap(colorPaletteEnabled);
+      }).should.throw('Color table is not supported');
     });
   });
 });
