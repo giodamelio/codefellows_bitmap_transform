@@ -4,11 +4,11 @@ import path from 'path';
 import parseBitmap from '../src/parse';
 
 // Load some example data
-const image1 = fs.readFileSync(path.join(__dirname, 'image1.bmp'));
-const invalidHeader = fs.readFileSync(path.join(__dirname, 'invalidHeader.bmp'));
-const invalidDIBHeader = fs.readFileSync(path.join(__dirname, 'invalidDIBHeader.bmp'));
-const compressionEnabled = fs.readFileSync(path.join(__dirname, 'compressionEnabled.bmp'));
-const colorPaletteEnabled = fs.readFileSync(path.join(__dirname, 'colorPaletteEnabled.bmp'));
+const image1 = fs.readFileSync(path.join(__dirname, 'images/image1.bmp'));
+const invalidHeader = fs.readFileSync(path.join(__dirname, 'images/invalidHeader.bmp'));
+const invalidDIBHeader = fs.readFileSync(path.join(__dirname, 'images/invalidDIBHeader.bmp'));
+const compressionEnabled = fs.readFileSync(path.join(__dirname, 'images/compressionEnabled.bmp'));
+const colorPaletteEnabled = fs.readFileSync(path.join(__dirname, 'images/colorPaletteEnabled.bmp'));
 
 describe('Parser', () => {
   describe('Header', () => {
