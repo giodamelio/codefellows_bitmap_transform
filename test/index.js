@@ -44,5 +44,11 @@ describe('Parser', () => {
         parseBitmap(invalidDIBHeader);
       }).should.throw('Invalid DIB header');
     });
+
+    it('should parse width and height', () => {
+      const image = parseBitmap(image1);
+      image.width.should.equal(512);
+      image.height.should.equal(512);
+    });
   });
 });

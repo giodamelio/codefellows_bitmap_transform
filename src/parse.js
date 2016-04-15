@@ -29,5 +29,9 @@ export default function parse(data) {
     output.DIBType = DIBHeaderTypes[DIBHeaderType];
   }
 
+  // Parse height and width
+  output.width = data.readInt32LE(18);
+  output.height = data.readInt32LE(22);
+
   return output;
 }
