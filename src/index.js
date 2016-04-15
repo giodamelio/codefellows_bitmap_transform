@@ -108,3 +108,22 @@ transform(imagePath, 'box_blur.bmp', (data, headerData) => {
   // Copy new data into buffer
   Buffer.from(_.flatten(pixelArray)).copy(data);
 });
+
+// Mirror the image
+transform(imagePath, 'mirrored.bmp', (data, headerData) => {
+  // Loop over each row of pixels
+  for (let index = 0; index < headerData.height; index++) {
+    // Get a row of pixels
+    const rowWidth = headerData.width * 3;
+    const row = data.slice(index * rowWidth, (index * rowWidth) + rowWidth);
+
+    // Convert the buffer into an array of pixels
+    const pixelArray = _.chunk(row, 3);
+
+    // Reverse the row
+    pixelArray.reverse();
+
+    // Convert pixel array back to buffer and copy back to original buffer
+    Buffer.from(_.flatten(pixelArray)).copy(row);
+  }
+});
