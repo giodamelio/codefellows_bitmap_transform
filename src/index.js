@@ -2,7 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import { Buffer } from 'buffer';
 
+import _ from 'lodash';
+
 import parseBitmap from './parse';
+import { findNeighbors } from './util';
 
 // Clone a buffer
 function cloneBuffer(oldBuffer) {
@@ -32,7 +35,7 @@ function transform(inputPath, outputPath, transformCallback) {
     const transformedPixels = cloneBuffer(originalImageData.rawPixels);
 
     // Run the transform
-    transformCallback(transformedPixels);
+    transformCallback(transformedPixels, originalImageData);
 
     // Copy the transformed pixels back into the original image
     transformedPixels.copy(image, originalImageData.pixelArrayOffset);
@@ -68,4 +71,40 @@ transform(imagePath, 'greyscale.bmp', (data) => {
     data[index + 1] = average;
     data[index + 2] = average;
   }
+});
+
+// Blur the image with a simple box blur
+transform(imagePath, 'box_blur.bmp', (data, headerData) => {
+  // Convert the buffer into an array of pixels
+  const pixelArray = _.chunk(data, 3);
+
+  // Blur 3 times
+  for (let i = 0; i < 3; i++) {
+    // Calculate averages
+    for (let index = 0; index < pixelArray.length; index++) {
+      // Get all the neighboring pixels
+      const neighbors = findNeighbors(index, headerData.width, pixelArray);
+
+      // Average all the pixels together
+      neighbors.push(pixelArray[index]);
+      let [rAverage, gAverage, bAverage] = [0, 0, 0];
+      for (const pixel of neighbors) {
+        rAverage += pixel[0];
+        gAverage += pixel[1];
+        bAverage += pixel[2];
+      }
+      rAverage /= neighbors.length;
+      gAverage /= neighbors.length;
+      bAverage /= neighbors.length;
+
+      pixelArray[index] = [
+        Math.floor(rAverage),
+        Math.floor(gAverage),
+        Math.floor(bAverage),
+      ];
+    }
+  }
+
+  // Copy new data into buffer
+  Buffer.from(_.flatten(pixelArray)).copy(data);
 });
