@@ -25,5 +25,10 @@ describe('Parser', () => {
       const image = parseBitmap(image1);
       image.size.should.equal(786554);
     });
+
+    it('should read the offset of the pixel array', () => {
+      const image = parseBitmap(image1);
+      image.offset.should.equal(122);
+    });
   });
 });

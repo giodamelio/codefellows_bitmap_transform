@@ -4,7 +4,8 @@ export default function parse(data) {
   // The output data
   const output = {};
 
-  // Check for a valid bitmap header
+  // Parse file header ------------------------------------
+  // Check for magic constant 0x42 0x4d
   if (data.slice(0, 2).compare(new Buffer([0x42, 0x4d])) !== 0) {
     throw new Error('Invalid bitmap header');
   }
@@ -12,5 +13,7 @@ export default function parse(data) {
   // Get the size of the bmp file
   output.size = data.readInt32LE(2);
 
+  // Get the offset of the pixel array
+  output.offset = data.readInt32LE(10);
   return output;
 }
