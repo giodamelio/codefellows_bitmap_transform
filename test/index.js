@@ -7,6 +7,7 @@ import parseBitmap from '../src/parse';
 const image1 = fs.readFileSync(path.join(__dirname, 'image1.bmp'));
 const invalidHeader = fs.readFileSync(path.join(__dirname, 'invalidHeader.bmp'));
 const invalidDIBHeader = fs.readFileSync(path.join(__dirname, 'invalidDIBHeader.bmp'));
+const compressionEnabled = fs.readFileSync(path.join(__dirname, 'compressionEnabled.bmp'));
 
 describe('Parser', () => {
   describe('Header', () => {
@@ -54,6 +55,12 @@ describe('Parser', () => {
     it('should parse color depth', () => {
       const image = parseBitmap(image1);
       image.depth.should.equal(24);
+    });
+
+    it('should error if image is compressed', () => {
+      (() => {
+        parseBitmap(compressionEnabled);
+      }).should.throw('Compression not supported');
     });
   });
 });

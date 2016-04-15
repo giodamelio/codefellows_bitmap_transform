@@ -36,5 +36,10 @@ export default function parse(data) {
   // Parse color depth(bits per pixel)
   output.depth = data.readInt16LE(28);
 
+  // Parse compression type (and error if anything but uncompressed)
+  if (data.readInt32LE(30) !== 0) {
+    throw new Error('Compression not supported');
+  }
+
   return output;
 }
