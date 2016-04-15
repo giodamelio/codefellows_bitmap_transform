@@ -81,4 +81,9 @@ describe('Parser', () => {
       }).should.throw('Color table is not supported');
     });
   });
+
+  it('should add pixel data buffer', () => {
+    const image = parseBitmap(image1);
+    image.rawPixels.length.should.equal(786432);
+  });
 });

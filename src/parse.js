@@ -53,5 +53,8 @@ export default function parse(data) {
     throw new Error('Color table is not supported');
   }
 
+  // Add raw pixel data
+  output.rawPixels = data.slice(output.pixelArrayOffset);
+
   return output;
 }
