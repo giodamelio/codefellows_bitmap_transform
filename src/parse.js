@@ -14,7 +14,7 @@ export default function parse(data) {
   output.fileSize = data.readInt32LE(2);
 
   // Get the offset of the pixel array
-  output.offset = data.readInt32LE(10);
+  output.pixelArrayOffset = data.readInt32LE(10);
 
   // Parse DIB header -------------------------------------
   const DIBHeaderTypes = {

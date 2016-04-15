@@ -30,7 +30,7 @@ describe('Parser', () => {
 
     it('should read the offset of the pixel array', () => {
       const image = parseBitmap(image1);
-      image.offset.should.equal(122);
+      image.pixelArrayOffset.should.equal(122);
     });
   });
 
