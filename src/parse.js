@@ -48,5 +48,8 @@ export default function parse(data) {
   output.horizontalResolution = data.readInt32LE(38);
   output.verticalResolution = data.readInt32LE(42);
 
+  // Parse the numbers of colors in the color palette
+  output.colorPalette = data.readInt32LE(46);
+
   return output;
 }

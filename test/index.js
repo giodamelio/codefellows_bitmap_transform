@@ -73,5 +73,10 @@ describe('Parser', () => {
       image.horizontalResolution.should.equal(2835);
       image.verticalResolution.should.equal(2835);
     });
+
+    it('should parse raw bitmap data length', () => {
+      const image = parseBitmap(image1);
+      image.colorPalette.should.equal(0);
+    });
   });
 });
