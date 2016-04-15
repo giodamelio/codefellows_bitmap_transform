@@ -50,5 +50,10 @@ describe('Parser', () => {
       image.width.should.equal(512);
       image.height.should.equal(512);
     });
+
+    it('should parse color depth', () => {
+      const image = parseBitmap(image1);
+      image.depth.should.equal(24);
+    });
   });
 });

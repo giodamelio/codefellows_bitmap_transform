@@ -33,5 +33,8 @@ export default function parse(data) {
   output.width = data.readInt32LE(18);
   output.height = data.readInt32LE(22);
 
+  // Parse color depth(bits per pixel)
+  output.depth = data.readInt16LE(28);
+
   return output;
 }
