@@ -23,9 +23,9 @@ describe('Parser', () => {
       }).should.throw('Invalid bitmap header');
     });
 
-    it('should read the image size in bytes', () => {
+    it('should read the image file size in bytes', () => {
       const image = parseBitmap(image1);
-      image.size.should.equal(786554);
+      image.fileSize.should.equal(786554);
     });
 
     it('should read the offset of the pixel array', () => {
@@ -61,6 +61,11 @@ describe('Parser', () => {
       (() => {
         parseBitmap(compressionEnabled);
       }).should.throw('Compression not supported');
+    });
+
+    it('should parse raw bitmap data length', () => {
+      const image = parseBitmap(image1);
+      image.bitmapSize.should.equal(786432);
     });
   });
 });

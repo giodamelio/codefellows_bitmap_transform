@@ -11,7 +11,7 @@ export default function parse(data) {
   }
 
   // Get the size of the bmp file
-  output.size = data.readInt32LE(2);
+  output.fileSize = data.readInt32LE(2);
 
   // Get the offset of the pixel array
   output.offset = data.readInt32LE(10);
@@ -40,6 +40,9 @@ export default function parse(data) {
   if (data.readInt32LE(30) !== 0) {
     throw new Error('Compression not supported');
   }
+
+  // Parse the size of the raw bitmap data
+  output.bitmapSize = data.readInt32LE(34);
 
   return output;
 }
