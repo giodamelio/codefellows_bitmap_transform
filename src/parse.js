@@ -44,5 +44,9 @@ export default function parse(data) {
   // Parse the size of the raw bitmap data
   output.bitmapSize = data.readInt32LE(34);
 
+  // Parse the resolution of the images in ppm(pixels per meter)
+  output.horizontalResolution = data.readInt32LE(38);
+  output.verticalResolution = data.readInt32LE(42);
+
   return output;
 }

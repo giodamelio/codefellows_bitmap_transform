@@ -67,5 +67,11 @@ describe('Parser', () => {
       const image = parseBitmap(image1);
       image.bitmapSize.should.equal(786432);
     });
+
+    it('should parse image resolution', () => {
+      const image = parseBitmap(image1);
+      image.horizontalResolution.should.equal(2835);
+      image.verticalResolution.should.equal(2835);
+    });
   });
 });
