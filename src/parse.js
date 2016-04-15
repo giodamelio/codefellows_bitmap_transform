@@ -15,5 +15,19 @@ export default function parse(data) {
 
   // Get the offset of the pixel array
   output.offset = data.readInt32LE(10);
+
+  // Parse DIB header -------------------------------------
+  const DIBHeaderTypes = {
+    108: 'BITMAPV4HEADER',
+  };
+
+  // Check to see if we can parse the DIB header
+  const DIBHeaderType = data.readInt32LE(14);
+  if (!DIBHeaderTypes.hasOwnProperty(DIBHeaderType)) {
+    throw new Error('Invalid DIB header');
+  } else {
+    output.DIBType = DIBHeaderTypes[DIBHeaderType];
+  }
+
   return output;
 }
