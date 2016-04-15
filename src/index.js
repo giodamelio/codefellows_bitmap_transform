@@ -48,11 +48,24 @@ function transform(inputPath, outputPath, transformCallback) {
   });
 }
 
-const imagePath = path.join(__dirname, '../test/images/image1.bmp');
+const imagePath = path.join(__dirname, '../test/images/lena.bmp');
 
 // Invert the image
 transform(imagePath, 'inverted.bmp', (data) => {
   for (let index = 0; index < data.length; index++) {
     data[index] = ~data[index];
+  }
+});
+
+// Convert to greyscale via desaturation
+transform(imagePath, 'greyscale.bmp', (data) => {
+  for (let index = 0; index < data.length; index += 3) {
+    const R = data[index];
+    const G = data[index + 1];
+    const B = data[index + 2];
+    const average = (Math.max(R, G, B) + Math.min(R, G, B)) / 2;
+    data[index] = average;
+    data[index + 1] = average;
+    data[index + 2] = average;
   }
 });
